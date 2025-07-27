@@ -53,6 +53,7 @@ def pick_your_poison_multiplayer():
     while len(alive_players) > 1:
         print(f"\n--- ROUND {round_num} ---")
         new_alive = []
+        eliminated = []
 
         for name in alive_players:
             if name.startswith("Computer"):
@@ -75,22 +76,26 @@ def pick_your_poison_multiplayer():
                 if other != name and pick == poison_dict[other]:
                     print(f"💀 {name} picked {other}'s poison ({poison_dict[other]})!")
                     poisoned = True
+                    eliminated.append(name)
                     break
 
             if not poisoned:
                 print(f"✅ {name} is safe.")
                 new_alive.append(name)
 
+        # Announce eliminated players
+        for player in eliminated:
+            print(f"❌ {player} has been eliminated from the game.")
+
         alive_players = new_alive
         round_num += 1
 
     # Final result
+    print("\n--- GAME OVER ---")
     if len(alive_players) == 1:
-        print(f"\n🏆 {alive_players[0]} is the LAST PLAYER STANDING!  WON!")
+        print(f"🏆 {alive_players[0]} is the LAST PLAYER STANDING! CONGRATULATIONS!")
     else:
-        print("\n💥 No one survived. Game Over.")
+        print("💥 No one survived. Game Over.")
 
 # Start the game
 pick_your_poison_multiplayer()
-
-
